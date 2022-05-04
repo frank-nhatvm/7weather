@@ -4,4 +4,4 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "customer")
-data class CustomerEntity (@PrimaryKey val id: Int)
+data class CacheEntity (@PrimaryKey val id: Int)

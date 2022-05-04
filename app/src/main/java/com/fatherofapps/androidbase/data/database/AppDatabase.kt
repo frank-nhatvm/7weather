@@ -2,10 +2,10 @@ package com.fatherofapps.androidbase.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.fatherofapps.androidbase.data.database.daos.CustomerDao
-import com.fatherofapps.androidbase.data.database.entities.CustomerEntity
+import com.fatherofapps.androidbase.data.database.daos.CacheDao
+import com.fatherofapps.androidbase.data.database.entities.CacheEntity
 
-@Database(entities = [CustomerEntity::class],version = 1)
+@Database(entities = [CacheEntity::class],version = 1)
 abstract class AppDatabase : RoomDatabase(){
-    abstract fun customerDao(): CustomerDao
+    abstract fun customerDao(): CacheDao
 }

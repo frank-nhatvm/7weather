@@ -3,7 +3,7 @@ package com.fatherofapps.androidbase.di
 import android.content.Context
 import androidx.room.Room
 import com.fatherofapps.androidbase.data.database.AppDatabase
-import com.fatherofapps.androidbase.data.database.daos.CustomerDao
+import com.fatherofapps.androidbase.data.database.daos.CacheDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +23,7 @@ class DatabaseModule {
     }
 
     @Provides
-    fun provideCustomerDao(appDatabase: AppDatabase): CustomerDao{
+    fun provideCustomerDao(appDatabase: AppDatabase): CacheDao{
         return appDatabase.customerDao()
     }
 

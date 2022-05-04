@@ -19,7 +19,7 @@ android {
     compileSdkVersion 32
 
     defaultConfig {
-        applicationId "com.fatherofapps.androidbase"
+        applicationId "com.frank.weather"
         minSdkVersion 21
         targetSdkVersion 32
         versionCode 1
@@ -60,17 +60,17 @@ android {
 
         dev {
             buildConfigField("String", "BASE_URL", apikeyProperties['BASE_URL_DEV'])
-            buildConfigField("String", "ACCESS_TOKEN", apikeyProperties['ACCESS_TOKEN_DEV'])
+            buildConfigField("String", "APP_ID", apikeyProperties['APP_ID_DEV'])
         }
 
         staging {
             buildConfigField("String", "BASE_URL", apikeyProperties['BASE_URL_STAGING'])
-            buildConfigField("String", "ACCESS_TOKEN", apikeyProperties['ACCESS_TOKEN_STAGING'])
+            buildConfigField("String", "APP_ID", apikeyProperties['APP_ID_STAGING'])
         }
 
         live {
             buildConfigField("String", "BASE_URL", apikeyProperties['BASE_URL_LIVE'])
-            buildConfigField("String", "ACCESS_TOKEN", apikeyProperties['ACCESS_TOKEN_LIVE'])
+            buildConfigField("String", "APP_ID", apikeyProperties['APP_ID_LIVE'])
         }
 
     }

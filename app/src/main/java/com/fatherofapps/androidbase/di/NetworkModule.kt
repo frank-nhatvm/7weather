@@ -20,10 +20,10 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
-//    @Provides
-//    fun provideCustomerAPI(@Named("MainSite") retrofit: Retrofit): CustomerAPI {
-//        return retrofit.create(CustomerAPI::class.java)
-//    }
+    @Provides
+    fun provideForecastApi(@Named("MainSite") retrofit: Retrofit): ForecastApi {
+        return retrofit.create(ForecastApi::class.java)
+    }
 
 
     @Provides
