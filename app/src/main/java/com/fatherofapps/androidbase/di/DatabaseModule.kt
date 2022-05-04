@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.fatherofapps.androidbase.data.database.AppDatabase
 import com.fatherofapps.androidbase.data.database.daos.CacheDao
+import com.fatherofapps.androidbase.data.database.daos.KeywordDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,8 +24,13 @@ class DatabaseModule {
     }
 
     @Provides
-    fun provideCustomerDao(appDatabase: AppDatabase): CacheDao{
-        return appDatabase.customerDao()
+    fun provideCacheDao(appDatabase: AppDatabase): CacheDao{
+        return appDatabase.cacheDao()
+    }
+
+    @Provides
+    fun provideKeywordDao(appDatabase: AppDatabase): KeywordDao{
+        return appDatabase.keywordDao()
     }
 
 }

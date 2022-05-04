@@ -4,14 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "cache")
-data class CacheEntity(
+@Entity(tableName = "keyword")
+data class KeywordEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    @ColumnInfo(name = "path_file")
-    val pathFile: String,
-    @ColumnInfo(name = "query_hash")
-    val queryHash: String,
+    val keyword: String,
     @ColumnInfo(name = "created_at")
     val createdAt: String
-    )
+)
