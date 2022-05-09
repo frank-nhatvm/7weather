@@ -9,7 +9,7 @@ import org.threeten.bp.OffsetDateTime
 @Entity(tableName = "keyword", indices = [Index(value = ["keyword"], unique = true)])
 data class KeywordEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int = 0,
     val keyword: String,
     @ColumnInfo(name = "created_at")
     val createdAt: OffsetDateTime? = null
