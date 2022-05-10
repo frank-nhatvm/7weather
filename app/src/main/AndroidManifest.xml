@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FatherOfApps"
         android:name=".CustomApplication"
+        android:networkSecurityConfig="@xml/network_security_config"
         >
         <activity
             android:exported="true"

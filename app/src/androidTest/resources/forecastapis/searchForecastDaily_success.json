@@ -1,0 +1,262 @@
+{
+  "city": {
+    "id": 1580578,
+    "name": "Ho Chi Minh City",
+    "coord": {
+      "lon": 106.6667,
+      "lat": 10.8333
+    },
+    "country": "VN",
+    "population": 0,
+    "timezone": 25200
+  },
+  "cod": "200",
+  "message": 6.9271591,
+  "cnt": 7,
+  "list": [
+    {
+      "dt": 1652155200,
+      "sunrise": 1652135541,
+      "sunset": 1652180831,
+      "temp": {
+        "day": 307.04,
+        "min": 299.59,
+        "max": 307.04,
+        "night": 301.02,
+        "eve": 301.77,
+        "morn": 299.59
+      },
+      "feels_like": {
+        "day": 311.3,
+        "night": 305.22,
+        "eve": 306.47,
+        "morn": 299.59
+      },
+      "pressure": 1009,
+      "humidity": 50,
+      "weather": [
+        {
+          "id": 501,
+          "main": "Rain",
+          "description": "moderate rain",
+          "icon": "10d"
+        }
+      ],
+      "speed": 5.13,
+      "deg": 170,
+      "gust": 7.84,
+      "clouds": 96,
+      "pop": 0.9,
+      "rain": 3.41
+    },
+    {
+      "dt": 1652241600,
+      "sunrise": 1652221927,
+      "sunset": 1652267244,
+      "temp": {
+        "day": 307.57,
+        "min": 299.73,
+        "max": 309.56,
+        "night": 301.98,
+        "eve": 306.12,
+        "morn": 299.73
+      },
+      "feels_like": {
+        "day": 312.48,
+        "night": 306.05,
+        "eve": 310.9,
+        "morn": 299.73
+      },
+      "pressure": 1008,
+      "humidity": 50,
+      "weather": [
+        {
+          "id": 500,
+          "main": "Rain",
+          "description": "light rain",
+          "icon": "10d"
+        }
+      ],
+      "speed": 4.73,
+      "deg": 185,
+      "gust": 8.34,
+      "clouds": 100,
+      "pop": 0.9,
+      "rain": 0.94
+    },
+    {
+      "dt": 1652328000,
+      "sunrise": 1652308313,
+      "sunset": 1652353656,
+      "temp": {
+        "day": 304.97,
+        "min": 300.4,
+        "max": 307.77,
+        "night": 302.12,
+        "eve": 306.02,
+        "morn": 300.4
+      },
+      "feels_like": {
+        "day": 309.23,
+        "night": 306.38,
+        "eve": 310.36,
+        "morn": 303.45
+      },
+      "pressure": 1009,
+      "humidity": 58,
+      "weather": [
+        {
+          "id": 501,
+          "main": "Rain",
+          "description": "moderate rain",
+          "icon": "10d"
+        }
+      ],
+      "speed": 3.54,
+      "deg": 219,
+      "gust": 7.28,
+      "clouds": 86,
+      "pop": 0.87,
+      "rain": 8.02
+    },
+    {
+      "dt": 1652414400,
+      "sunrise": 1652394699,
+      "sunset": 1652440069,
+      "temp": {
+        "day": 305.73,
+        "min": 300.16,
+        "max": 308.3,
+        "night": 302.06,
+        "eve": 305.66,
+        "morn": 300.16
+      },
+      "feels_like": {
+        "day": 309.73,
+        "night": 305.5,
+        "eve": 309.58,
+        "morn": 303.1
+      },
+      "pressure": 1008,
+      "humidity": 54,
+      "weather": [
+        {
+          "id": 500,
+          "main": "Rain",
+          "description": "light rain",
+          "icon": "10d"
+        }
+      ],
+      "speed": 4.18,
+      "deg": 222,
+      "gust": 8.54,
+      "clouds": 98,
+      "pop": 0.58,
+      "rain": 0.75
+    },
+    {
+      "dt": 1652500800,
+      "sunrise": 1652481087,
+      "sunset": 1652526483,
+      "temp": {
+        "day": 306.4,
+        "min": 300.2,
+        "max": 309.92,
+        "night": 303.18,
+        "eve": 306.33,
+        "morn": 300.2
+      },
+      "feels_like": {
+        "day": 310.88,
+        "night": 307.32,
+        "eve": 311.05,
+        "morn": 303.2
+      },
+      "pressure": 1009,
+      "humidity": 53,
+      "weather": [
+        {
+          "id": 804,
+          "main": "Clouds",
+          "description": "overcast clouds",
+          "icon": "04d"
+        }
+      ],
+      "speed": 4.47,
+      "deg": 220,
+      "gust": 7.94,
+      "clouds": 100,
+      "pop": 0.35
+    },
+    {
+      "dt": 1652587200,
+      "sunrise": 1652567475,
+      "sunset": 1652612896,
+      "temp": {
+        "day": 305.98,
+        "min": 300.65,
+        "max": 308.76,
+        "night": 302.3,
+        "eve": 306.56,
+        "morn": 300.65
+      },
+      "feels_like": {
+        "day": 310.58,
+        "night": 305.83,
+        "eve": 310.59,
+        "morn": 303.91
+      },
+      "pressure": 1009,
+      "humidity": 55,
+      "weather": [
+        {
+          "id": 500,
+          "main": "Rain",
+          "description": "light rain",
+          "icon": "10d"
+        }
+      ],
+      "speed": 5.46,
+      "deg": 252,
+      "gust": 9.45,
+      "clouds": 100,
+      "pop": 0.49,
+      "rain": 1.53
+    },
+    {
+      "dt": 1652673600,
+      "sunrise": 1652653864,
+      "sunset": 1652699310,
+      "temp": {
+        "day": 306.2,
+        "min": 299.32,
+        "max": 307.74,
+        "night": 299.92,
+        "eve": 302.75,
+        "morn": 300.52
+      },
+      "feels_like": {
+        "day": 310.75,
+        "night": 302.72,
+        "eve": 307.45,
+        "morn": 303.73
+      },
+      "pressure": 1009,
+      "humidity": 54,
+      "weather": [
+        {
+          "id": 502,
+          "main": "Rain",
+          "description": "heavy intensity rain",
+          "icon": "10d"
+        }
+      ],
+      "speed": 6.03,
+      "deg": 253,
+      "gust": 9.61,
+      "clouds": 100,
+      "pop": 1,
+      "rain": 38.19
+    }
+  ]
+}

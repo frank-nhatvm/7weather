@@ -40,18 +40,6 @@ class NetworkModule {
             .build()
     }
 
-    @Provides
-    @Singleton
-    @Named("FatherOfApps")
-    fun provideRetrofitNewYorkTime(
-        okHttpClient: OkHttpClient,
-        moshiConverterFactory: MoshiConverterFactory
-    ): Retrofit {
-        return Retrofit.Builder().addConverterFactory(moshiConverterFactory)
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(okHttpClient)
-            .build()
-    }
 
     @Provides
     @Singleton
