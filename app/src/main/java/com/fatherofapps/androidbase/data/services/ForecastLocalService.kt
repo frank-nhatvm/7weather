@@ -20,7 +20,7 @@ class ForecastLocalService @Inject constructor(
     suspend fun getCacheData(queryHash: String): List<WeatherInfo>? {
         val cache = getCacheByQueryHash(queryHash)
         cache?.pathFile?.let { filePath ->
-            cacheFileUtils.getCacheDataFromFile(filePath)
+          return  cacheFileUtils.getCacheDataFromFile(filePath)
         }
 
         return null
@@ -31,33 +31,30 @@ class ForecastLocalService @Inject constructor(
         return cacheDao.getCacheByQuery(queryHash)
     }
 
-
-    suspend fun saveData(
-        queryHash: String,
-        query: String,
-        list: List<WeatherInfo>,
-        cacheFolder: File
-    ) {
-        saveKeyword(query)
-        val filePath = cacheFileUtils.writeDataToFile(list, cacheFolder)
-        saveCache(queryHash = queryHash, filePath = filePath)
-    }
-
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    suspend fun saveKeyword(query: String) {
-        val createdAt = OffsetDateTime.now()
+    suspend fun saveKeyword(query: String,createdAt: OffsetDateTime) {
         val keywordEntity = KeywordEntity(keyword = query, createdAt = createdAt)
         keywordDao.insert(keywordEntity)
     }
 
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    suspend fun saveCache(queryHash: String, filePath: String) {
-        val createdAt = OffsetDateTime.now()
+    suspend fun saveCache(queryHash: String, filePath: String,createdAt: OffsetDateTime) {
         val cacheEntity =
             CacheEntity(pathFile = filePath, queryHash = queryHash, createdAt = createdAt)
         cacheDao.insert(cacheEntity)
     }
 
+    suspend fun saveData(
+        queryHash: String,
+        query: String,
+        list: List<WeatherInfo>,
+        cacheFolder: File,
+        createdAt: OffsetDateTime
+    ) {
+        saveKeyword(query,createdAt)
+        val filePath = cacheFileUtils.writeDataToFile(list, cacheFolder)
+        saveCache(queryHash = queryHash, filePath = filePath,createdAt)
+    }
 
 }

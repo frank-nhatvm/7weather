@@ -5,6 +5,7 @@ import com.fatherofapps.androidbase.common.CacheFileUtils
 import com.fatherofapps.androidbase.data.database.daos.CacheDao
 import com.fatherofapps.androidbase.data.database.daos.KeywordDao
 import com.fatherofapps.androidbase.data.database.entities.CacheEntity
+import com.fatherofapps.androidbase.data.database.entities.KeywordEntity
 import com.fatherofapps.androidbase.data.models.WeatherInfo
 import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -14,6 +15,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
 import org.threeten.bp.OffsetDateTime
+import java.io.File
 
 
 @ExperimentalCoroutinesApi
@@ -41,39 +43,17 @@ class ForecastLocalServiceTest {
     }
 
     @Test
-    fun getCacheByQueryHash_withNewQuery_returnNull() =
+    fun getCacheByQueryHash_callToGetCacheByQueryOfCacheDao() =
         mainCoroutinesApi.dispatcher.runBlockingTest {
             val queryHash = "queryHash24343"
-            Mockito.`when`(cacheDao.getCacheByQuery(queryHash)).thenReturn(null)
-            val result = forecastLocalService.getCacheByQueryHash(queryHash = queryHash)
-            Truth.assertThat(result).isNull()
-        }
-
-    @Test
-    fun getCacheByQueryHash_withExistQuery_returnACacheEntity() =
-        mainCoroutinesApi.dispatcher.runBlockingTest {
-            val queryHash = "queryHash24343"
-            val createdAt = OffsetDateTime.now()
-            val cacheEntity = CacheEntity(
-                id = 1,
-                pathFile = "/caches/89999.json",
-                queryHash = queryHash,
-                createdAt = createdAt
-            )
-            Mockito.`when`(cacheDao.getCacheByQuery(queryHash)).thenReturn(cacheEntity)
-            val result = forecastLocalService.getCacheByQueryHash(queryHash = queryHash)
-            Truth.assertThat(result).isNotNull()
-            Truth.assertThat(result?.id).isEqualTo(cacheEntity.id)
-            Truth.assertThat(result?.queryHash).isEqualTo(cacheEntity.queryHash)
-            Truth.assertThat(result?.pathFile).isEqualTo(cacheEntity.pathFile)
+            forecastLocalService.getCacheByQueryHash(queryHash = queryHash)
+            Mockito.verify(cacheDao, Mockito.times(1)).getCacheByQuery(queryHash)
         }
 
     @Test
     fun getCacheData_callToGetCacheByQueryOfCacheDao() =
         mainCoroutinesApi.dispatcher.runBlockingTest {
             val queryHash = "ha noi"
-
-            Mockito.`when`(cacheDao.getCacheByQuery(queryHash = queryHash)).thenReturn(null)
             forecastLocalService.getCacheData(queryHash)
             Mockito.verify(cacheDao, Mockito.times(1)).getCacheByQuery(queryHash)
         }
@@ -96,11 +76,24 @@ class ForecastLocalServiceTest {
             val queryHash = "ha noi"
             val filePath = "caches/990008.json"
             val createdAt = OffsetDateTime.now()
-            val cacheEntity = CacheEntity(id = 1, pathFile = filePath,queryHash=queryHash,createdAt=createdAt)
+            val cacheEntity = CacheEntity(
+                id = 1,
+                pathFile = filePath,
+                queryHash = queryHash,
+                createdAt = createdAt
+            )
             Mockito.`when`(cacheDao.getCacheByQuery(queryHash)).thenReturn(cacheEntity)
-            val fakeWeatherInfo = WeatherInfo(date = 99008090,averageTemp = 20, pressure = 123, humidity = 12, description = "rain")
-            val fakeListWeatherInfo  = listOf(fakeWeatherInfo)
-            Mockito.`when`(cacheFileUtils.getCacheDataFromFile(filePath)).thenReturn(fakeListWeatherInfo)
+            val fakeWeatherInfo = WeatherInfo(
+                date = 99008090,
+                averageTemp = 20,
+                pressure = 123,
+                humidity = 12,
+                description = "rain"
+            )
+            val fakeListWeatherInfo = listOf(fakeWeatherInfo)
+            Mockito.`when`(cacheFileUtils.getCacheDataFromFile(filePath))
+                .thenReturn(fakeListWeatherInfo)
+
             val listWeatherInfo = forecastLocalService.getCacheData(queryHash)
             Truth.assertThat(listWeatherInfo).isNotNull()
             Truth.assertThat(listWeatherInfo?.size).isEqualTo(1)
@@ -113,16 +106,46 @@ class ForecastLocalServiceTest {
             Truth.assertThat(firstItem?.description).isEqualTo(fakeWeatherInfo.description)
         }
 
-
     @Test
-    fun saveCache_callToInsertFunctionOfCacheDao() = mainCoroutinesApi.dispatcher.runBlockingTest {
-        val queryHash = "queryHash22"
-        val filePath = "/caches/3933.json"
-        val today = OffsetDateTime.now()
-        val cacheEntity = CacheEntity(queryHash = queryHash, pathFile = filePath, createdAt = today)
-        forecastLocalService.saveCache(queryHash = queryHash, filePath = filePath)
-
+    fun saveKeyword_callToInsertOfKeywordDao() = mainCoroutinesApi.dispatcher.runBlockingTest {
+        val query = "ha noi"
+        val createdAt = OffsetDateTime.now()
+        forecastLocalService.saveKeyword(query, createdAt)
+        val keywordEntity = KeywordEntity(keyword = query, createdAt = createdAt)
+        Mockito.verify(keywordDao, Mockito.times(1)).insert(keywordEntity)
     }
 
+    @Test
+    fun saveCache_callToInsertOfCacheDao() = mainCoroutinesApi.dispatcher.runBlockingTest {
+        val queryHash = "queryHash93r93"
+        val filePath = "caches/09809.json"
+        val createdAt = OffsetDateTime.now()
+        forecastLocalService.saveCache(queryHash, filePath, createdAt)
+        val cacheEntity =
+            CacheEntity(pathFile = filePath, queryHash = queryHash, createdAt = createdAt)
+        Mockito.verify(cacheDao, Mockito.times(1)).insert(cacheEntity)
+    }
+
+    @Test
+    fun saveData_callToInsertOfCacheDao_callToInsertOfKeywordDao_callToWriteDataToFileOfCacheFileUtils() =
+        mainCoroutinesApi.dispatcher.runBlockingTest {
+            val queryHash = "queryHash999"
+            val query = "ha noi"
+            val listWeatherInfo = listOf<WeatherInfo>()
+            val cacheFolder = File("data/user/0")
+            val createdAt = OffsetDateTime.now()
+            val filePath = "caches/8899.json"
+            Mockito.`when`(cacheFileUtils.writeDataToFile(listWeatherInfo,cacheFolder)).thenReturn(filePath)
+            forecastLocalService.saveData(queryHash = queryHash,query = query,list = listWeatherInfo,cacheFolder=cacheFolder,createdAt=createdAt)
+
+            val cacheEntity =
+                CacheEntity(pathFile = filePath, queryHash = queryHash, createdAt = createdAt)
+            Mockito.verify(cacheDao, Mockito.times(1)).insert(cacheEntity)
+
+            val keywordEntity = KeywordEntity(keyword = query, createdAt = createdAt)
+            Mockito.verify(keywordDao, Mockito.times(1)).insert(keywordEntity)
+
+            Mockito.verify(cacheFileUtils,Mockito.times(1)).writeDataToFile(listWeatherInfo,cacheFolder)
+        }
 
 }
