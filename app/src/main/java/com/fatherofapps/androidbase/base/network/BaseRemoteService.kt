@@ -2,7 +2,7 @@ package com.fatherofapps.androidbase.base.network
 
 import retrofit2.Response
 
-class BaseRemoteService : BaseService() {
+open class BaseRemoteService : BaseService() {
 
     protected suspend fun <T : Any> callApi(call: suspend () -> Response<T>): NetworkResult<T> {
         val response: Response<T>
