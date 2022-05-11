@@ -6,11 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.fatherofapps.androidbase.base.viewmodel.BaseViewModel
 import com.fatherofapps.androidbase.data.models.WeatherInfo
 import com.fatherofapps.androidbase.data.repositories.ForecastRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 import java.io.File
 import javax.inject.Inject
 
+@HiltViewModel
 class HomeViewModel @Inject constructor(private val forecastRepository: ForecastRepository) :
     BaseViewModel() {
 

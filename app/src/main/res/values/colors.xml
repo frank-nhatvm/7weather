@@ -11,9 +11,9 @@
     <color name="primaryTextColor">#000000</color>
     <color name="error_color">@android:color/holo_red_light</color>
     <color name="light_text_color">#FFFFFFFF</color>
-    <color name="text_color">#333333</color>
+    <color name="text_color">#1E2742
+    </color>
     <color name="hint_text_color">#B7B7B7</color>
-    <color name="regular_price_color">#cbcbcb</color>
     <color name="inactive_text_color">#8D8D8D</color>
     <color name="background_splash_color">#FF6C2F</color>
 
@@ -22,6 +22,7 @@
     <color name="icon_color_bottom_normal">@color/primaryLightColor</color>
     <color name="icon_color_bottom_selected">@color/primaryColor</color>
 
+    <color name="icon_color">#9A9898</color>
 
     <color name="icon_color_normal">#B7B7B7</color>
 

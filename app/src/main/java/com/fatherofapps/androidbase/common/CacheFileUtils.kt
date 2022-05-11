@@ -3,8 +3,9 @@ package com.fatherofapps.androidbase.common
 import com.fatherofapps.androidbase.data.models.WeatherInfo
 import org.json.JSONArray
 import java.io.File
+import javax.inject.Inject
 
-class CacheFileUtils {
+class CacheFileUtils @Inject constructor(){
 
     fun getCacheDataFromFile(filePath: String): List<WeatherInfo> {
         val file = File(filePath)

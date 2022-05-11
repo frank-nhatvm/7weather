@@ -59,11 +59,6 @@
         <item name="fontFamily">@font/app_font_bold</item>
     </style>
 
-    <style name="regular_price_style">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/regular_price_color</item>
-        <item name="fontFamily">@font/app_font_regular</item>
-    </style>
 
     <style name="product_name_detail_style">
         <item name="android:textSize">18sp</item>
@@ -83,11 +78,6 @@
         <item name="fontFamily">@font/app_font_medium</item>
     </style>
 
-    <style name="regular_price_detail_style">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/regular_price_color</item>
-        <item name="fontFamily">@font/app_font_regular</item>
-    </style>
 
     <style name="category_name_style">
         <item name="android:textSize">18sp</item>

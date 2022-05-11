@@ -3,6 +3,7 @@ package com.fatherofapps.androidbase.base.activities
 import android.view.Gravity
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import com.fatherofapps.androidbase.R
 import com.fatherofapps.androidbase.base.dialogs.ConfirmDialog
 import com.fatherofapps.androidbase.base.dialogs.ErrorDialog
 import com.fatherofapps.androidbase.base.dialogs.NotifyDialog
@@ -15,7 +16,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     open fun showErrorDialog(message: String) {
-        val errorDialog = ErrorDialog(this, message)
+        val errorDialog = ErrorDialog(this, message, textButton = getString(R.string.ok))
         errorDialog.show()
         errorDialog.window?.setGravity(Gravity.CENTER)
         errorDialog.window?.setLayout(

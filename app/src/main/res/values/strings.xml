@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">7Weathers</string>
     <string name="default_notify_title">Message</string>
+    <string name="search_weather">Search weather</string>
+    <string name="enter_your_city">Enter your city</string>
+    <string name="ok">OK</string>
+    <string name="weather_forecast">Weather Forecast</string>
+    <string name="forecast_date">Date: %s</string>
+    <string name="forecast_average_temp">Average temperature: %s</string>
+    <string name="forecast_pressure">Pressure: %s</string>
+    <string name="forecast_humidity">Humidity: %s</string>
+    <string name="forecast_description">Description: %s</string>
 </resources>

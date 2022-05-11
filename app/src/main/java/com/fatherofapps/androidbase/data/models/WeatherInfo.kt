@@ -1,6 +1,8 @@
 package com.fatherofapps.androidbase.data.models
 
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.*
 
 class WeatherInfo(
     val date: Long?,
@@ -9,6 +11,32 @@ class WeatherInfo(
     val humidity:Int?,
     val description: String?
 ){
+
+    fun getFormatDate(): String{
+
+        date?.let {
+            val inputDate = Date(date*1000L)
+            val outputFormat = SimpleDateFormat("EEE, dd MMM yyyy", Locale.getDefault())
+            return outputFormat.format(inputDate)
+        }
+
+        return ""
+    }
+
+    fun getFormatTemp(): String{
+        averageTemp?.let {
+            return "$averageTemp°C"
+        }
+        return ""
+    }
+
+    fun getFormatHumidity(): String{
+        humidity?.let {
+            return "$humidity%"
+        }
+        return ""
+    }
+
     fun toJsonObject(): JSONObject {
         val json = JSONObject()
         json.put("date",date)
