@@ -34,4 +34,9 @@ class CacheFileUtils @Inject constructor(){
     private fun getCacheFileName(): String {
         return "${System.currentTimeMillis()}.json"
     }
+
+    fun deleteCacheFile(filePath: String){
+        val file = File(filePath)
+        file.delete()
+    }
 }

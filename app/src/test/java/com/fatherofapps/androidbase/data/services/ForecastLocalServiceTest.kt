@@ -13,6 +13,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mock
 import org.mockito.Mockito
 import org.threeten.bp.OffsetDateTime
 import java.io.File
@@ -135,8 +136,15 @@ class ForecastLocalServiceTest {
             val cacheFolder = File("data/user/0")
             val createdAt = OffsetDateTime.now()
             val filePath = "caches/8899.json"
-            Mockito.`when`(cacheFileUtils.writeDataToFile(listWeatherInfo,cacheFolder)).thenReturn(filePath)
-            forecastLocalService.saveData(queryHash = queryHash,query = query,list = listWeatherInfo,cacheFolder=cacheFolder,createdAt=createdAt)
+            Mockito.`when`(cacheFileUtils.writeDataToFile(listWeatherInfo, cacheFolder))
+                .thenReturn(filePath)
+            forecastLocalService.saveData(
+                queryHash = queryHash,
+                query = query,
+                list = listWeatherInfo,
+                cacheFolder = cacheFolder,
+                createdAt = createdAt
+            )
 
             val cacheEntity =
                 CacheEntity(pathFile = filePath, queryHash = queryHash, createdAt = createdAt)
@@ -145,7 +153,74 @@ class ForecastLocalServiceTest {
             val keywordEntity = KeywordEntity(keyword = query, createdAt = createdAt)
             Mockito.verify(keywordDao, Mockito.times(1)).insert(keywordEntity)
 
-            Mockito.verify(cacheFileUtils,Mockito.times(1)).writeDataToFile(listWeatherInfo,cacheFolder)
+            Mockito.verify(cacheFileUtils, Mockito.times(1))
+                .writeDataToFile(listWeatherInfo, cacheFolder)
         }
+
+    // 2022-05-11T10:13:11.66+07:00
+    @Test
+    fun cleanup_callToGetAllCacheOfCacheDao() = mainCoroutinesApi.dispatcher.runBlockingTest {
+        Mockito.`when`(cacheDao.getAllCache()).thenReturn(emptyList())
+        forecastLocalService.cleanup()
+        Mockito.verify(cacheDao, Mockito.times(1)).getAllCache()
+    }
+
+    @Test
+    fun cleanup_databaseWithYesterdayAndTodayCache_callToDeleteOfCacheDaoOneTimeAndCallToDeleteCacheFileOfCacheFileUtilsOneTime() =
+        mainCoroutinesApi.dispatcher.runBlockingTest {
+            val yesterday = OffsetDateTime.parse("2022-05-10T10:13:11.66+07:00")
+            val yesterdayCachePathFile = "caches/99988.json";
+            val yesterdayCacheEntity = CacheEntity(
+                queryHash = "yesterdayQueryHash",
+                pathFile = yesterdayCachePathFile,
+                createdAt = yesterday
+            )
+
+            val today = OffsetDateTime.now()
+            val todayCacheEntity = CacheEntity(
+                queryHash = "todayQueryHash",
+                pathFile = "caches/8777.json",
+                createdAt = today
+            )
+
+            val listCache = listOf(yesterdayCacheEntity,todayCacheEntity)
+            Mockito.`when`(cacheDao.getAllCache()).thenReturn(listCache)
+            forecastLocalService.cleanup()
+            Mockito.verify(cacheDao,Mockito.times(1)).delete(yesterdayCacheEntity)
+            Mockito.verify(cacheFileUtils,Mockito.times(1)).deleteCacheFile(yesterdayCachePathFile)
+        }
+
+    @Test
+    fun cleanup_databaseOnlyHasTodayCaches_doNotCallDeleteOfCacheDaoAndDoNotCallToDeleteCacheFileOfCacheFileUtils() = mainCoroutinesApi.dispatcher.runBlockingTest {
+        var rightNow = OffsetDateTime.now()
+        if(rightNow.hour == 0 && rightNow.minute == 0){
+            rightNow = rightNow.plusMinutes(-5)
+        }
+        val rightNowFilePath = "caches/99999.json"
+        val rightNowCacheEntity = CacheEntity(
+            queryHash = "rightNowHash",
+            pathFile = rightNowFilePath,
+            createdAt = rightNow
+        )
+
+        val oneMinuteAgo = rightNow.plusMinutes(-1)
+        val oneMinuteAgoFilePath = "cache/8888.json"
+        val oneMinuteAgoCacheEntity = CacheEntity(
+            queryHash = "oneMinuteAgoHash",
+            pathFile = oneMinuteAgoFilePath,
+            createdAt = oneMinuteAgo
+        )
+
+        val listCache = listOf(rightNowCacheEntity,oneMinuteAgoCacheEntity)
+        Mockito.`when`(cacheDao.getAllCache()).thenReturn(listCache)
+        forecastLocalService.cleanup()
+
+        Mockito.verify(cacheDao,Mockito.times(0)).delete(rightNowCacheEntity)
+        Mockito.verify(cacheDao,Mockito.times(0)).delete(oneMinuteAgoCacheEntity)
+
+        Mockito.verify(cacheFileUtils,Mockito.times(0)).deleteCacheFile(rightNowFilePath)
+        Mockito.verify(cacheFileUtils,Mockito.times(0)).deleteCacheFile(oneMinuteAgoFilePath)
+
+    }
 
 }

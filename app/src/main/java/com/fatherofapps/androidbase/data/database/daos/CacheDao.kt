@@ -16,4 +16,7 @@ interface CacheDao {
 
     @Delete
     suspend fun delete(cacheEntity: CacheEntity)
+
+    @Query("SELECT * FROM cache")
+    suspend fun getAllCache(): List<CacheEntity>
 }

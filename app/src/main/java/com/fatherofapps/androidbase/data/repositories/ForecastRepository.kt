@@ -64,5 +64,8 @@ class ForecastRepository @Inject constructor(
         }
     }
 
+    suspend fun cleanup() = withContext(dispatcher){
+        forecastLocalService.cleanup()
+    }
 
 }

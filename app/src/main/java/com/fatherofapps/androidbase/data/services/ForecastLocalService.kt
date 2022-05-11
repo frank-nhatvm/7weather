@@ -2,6 +2,7 @@ package com.fatherofapps.androidbase.data.services
 
 import androidx.annotation.VisibleForTesting
 import com.fatherofapps.androidbase.common.CacheFileUtils
+import com.fatherofapps.androidbase.common.isToday
 import com.fatherofapps.androidbase.data.database.daos.CacheDao
 import com.fatherofapps.androidbase.data.database.daos.KeywordDao
 import com.fatherofapps.androidbase.data.database.entities.CacheEntity
@@ -55,6 +56,17 @@ class ForecastLocalService @Inject constructor(
         saveKeyword(query,createdAt)
         val filePath = cacheFileUtils.writeDataToFile(list, cacheFolder)
         saveCache(queryHash = queryHash, filePath = filePath,createdAt)
+    }
+
+    suspend fun cleanup(){
+        val allCaches = cacheDao.getAllCache()
+        allCaches.forEach { cache ->
+            if(cache.createdAt?.isToday() == false){
+                cacheFileUtils.deleteCacheFile(cache.pathFile)
+                cacheDao.delete(cache)
+
+            }
+        }
     }
 
 }

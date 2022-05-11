@@ -105,4 +105,29 @@ class CacheDaoTest : AppDatabaseTest(){
 
     }
 
+    @Test
+    fun getAllCache_withEmptyDatabase_returnAnEmptyList() = runBlocking {
+        val result = db.cacheDao().getAllCache()
+        Truth.assertThat(result).isNotNull()
+        Truth.assertThat(result.size).isEqualTo(0)
+    }
+
+    @Test
+    fun getAllCache_returnAllCaches() = runBlocking {
+        val today = OffsetDateTime.now()
+        for(index in 1..20){
+            val hourAgo = 0-index
+            val createAt = today.plusMinutes(hourAgo.toLong())
+            val cacheEntity = CacheEntity(
+                pathFile = "/cache/88998$index.json",
+                queryHash = "queryHash$index",
+                createdAt = createAt
+            )
+            db.cacheDao().insert(cacheEntity)
+        }
+        val result = db.cacheDao().getAllCache()
+        Truth.assertThat(result).isNotNull()
+        Truth.assertThat(result.size).isEqualTo(20)
+    }
+
 }

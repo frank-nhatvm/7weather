@@ -152,4 +152,11 @@ class ForecastRepositoryTest {
         )
     }
 
+    @Test
+    fun cleanup_callToCleanUpOfForecastLocalServiceOneTime()
+    = mainCoroutinesApi.dispatcher.runBlockingTest {
+        forecastRepository.cleanup()
+        Mockito.verify(forecastLocalService,Mockito.times(1)).cleanup()
+    }
+
 }
