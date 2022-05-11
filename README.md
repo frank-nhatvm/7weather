@@ -1,15 +1,17 @@
 # 7weather
 
 An applications allows the user search for weather information.
+1. Architecture
 
 ![Alt architecture](screenshots/architecture_mvvm.png)
 
-1. Architecture
+2. Code folder structure
 
 ![All code folder structure](screenshots/code_folder_structure.png)
 
-2. Code folder structure
+3. Sequence diagram
 
+![All code folder structure](screenshots/sequence_diagram.png)
 
 3. Key libraries are used in this project:
    Retrofit, Room, Moshi, Hilt, Kotlin-Coroutines, ThreetenBP, Mockito, Truth
